@@ -21,7 +21,6 @@ public class LightSource
 	float distance;
 	Body body;
 	float r,g,b;
-	Texture texture = new Texture(Gdx.files.internal("light.png"));
 	
 	public LightSource(int rays, float distance, int x, int y, float r, float g, float b)
 	{
@@ -61,7 +60,7 @@ public class LightSource
 	public void render()
 	{
 		final Vector2 position = body.getPosition();
-		Global.batch.draw(texture, position.x - 16, position.y - 16);
+		Global.batch.draw(Global.light, position.x - 16, position.y - 16, 32, 32);
 		
 		if (r == 0.3f)
 		{

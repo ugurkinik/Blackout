@@ -5,15 +5,14 @@ Done:
 ======================
 - Dynamic light
 - Dynamic shadow
+- Detect light/shadow
 
 To-Do:
 ======================
-- Detect light/shadow
-- Prototype 1
 - Move Light Sources
 - Move Blocks
-- Prototype 2
+- Prototype 1
 - Light sensor to unlock door
 - Battery compartment to unlock door
-- Prototype 3
+- Prototype 2
 - Map file

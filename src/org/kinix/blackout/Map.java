@@ -1,80 +1,111 @@
 package org.kinix.blackout;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Map
 {
 	ArrayList<LightSource> lights;
 	ArrayList<Block> blocks;
-	private Texture box;
-	private Texture light;
-	private Texture floor;
-	
+
+	Player player;
+
+	BitmapFont font;
+
 	public Map()
 	{
 		lights = new ArrayList<LightSource>();
 		blocks = new ArrayList<Block>();
+
+		// TODO: do not load textures if they are already loaded
+		Global.light = new Texture(Gdx.files.internal("light.png"));
+		Global.box = new Texture(Gdx.files.internal("box.jpg"));
+		Global.floor = new Texture(Gdx.files.internal("floor.png"));
+		Global.player = new Texture(Gdx.files.internal("player.png"));
 		
-		
-		light = new Texture(Gdx.files.internal("light.png"));
-		box = new Texture(Gdx.files.internal("box.jpg"));		
-		floor = new Texture(Gdx.files.internal("floor.png"));
-		
-		
-		lights.add(new LightSource(360, 300, 700, 350, 1f,0.3f,0.3f));
-		lights.add(new LightSource(360, 500, 200, 250, 0.3f, 1f, 0.3f));
-		
-		lights.get(1).body.setLinearVelocity(30, 0);
-		
-		blocks.add(new Block(470,300));
-		blocks.add(new Block(270,350));
-		blocks.add(new Block(370,200));
-		blocks.add(new Block(570,150));
-		blocks.add(new Block(300,450));
-		blocks.add(new Block(680,410));
-		
+		font = new BitmapFont();
+		font.setScale(2);
+
+		lights.add(new LightSource(300, 600, 500, 270, 1, 1, 1));
+
+		blocks.add(new Block(570, 300));
+		blocks.add(new Block(370, 350));
+		blocks.add(new Block(470, 200));
+		blocks.add(new Block(670, 150));
+		blocks.add(new Block(400, 450));
+		blocks.add(new Block(780, 410));
+
+		player = new Player(400, 300);
+
+		Global.setShadowFilter((short) 42);
+
+		Gdx.input.setInputProcessor(new InGameControl(this));
+
 	}
-	
+
 	public void dispose()
 	{
-		light.dispose();
-		box.dispose();
-		floor.dispose();
+		Global.light.dispose();
+		Global.box.dispose();
+		Global.floor.dispose();
+		Global.player.dispose();
 	}
 	
+	long time;
+
 	public void render()
-	{		
+	{
+		time = System.currentTimeMillis();
+		
 		drawFloor();
-		
+
 		Global.batch.enableBlending();
-		
-		for(LightSource light:lights)
+
+		for (LightSource light : lights)
 		{
 			light.render();
 		}
-		
-		
-		for(Block block:blocks)
+
+		for (Block block : blocks)
 		{
 			block.render();
 		}
+
+		player.render();
+
 	}
 	
-	
+	public void drawHud()
+	{
+		if (player.isDark())
+		{
+			font.setColor(Color.RED);
+			font.draw(Global.batch, "DARK", 0, 600);
+		}
+		else
+		{
+			font.setColor(Color.GREEN);
+			font.draw(Global.batch, "LIGHT", 0, 600);
+		}
+		
+		font.setColor(Color.YELLOW);
+		font.draw(Global.batch, "Calculation time per frame: "+(System.currentTimeMillis()-time) +" ms", 0, 30);
+	}
+
 	public void drawFloor()
 	{
-		for(int i=0; i<800; i+= floor.getWidth())
+		for (int i = 0; i < 1067; i += Global.floor.getWidth())
 		{
-			for(int j=0; j<600; j+= floor.getHeight())
+			for (int j = 0; j < 600; j += Global.floor.getHeight())
 			{
-				Global.batch.draw(floor, i, j);
+				Global.batch.draw(Global.floor, i, j);
 			}
 		}
-			
+
 	}
 }
