@@ -17,8 +17,8 @@ public class Screen implements ApplicationListener
 	@Override
 	public void create()
 	{
-		Global.camera = new OrthographicCamera(1067, 600);
-		Global.camera.position.set(533, 300, 0);
+		Global.camera = new OrthographicCamera(1280, 720);
+		Global.camera.position.set(640, 360, 0);
 		Global.camera.update();
 
 		Global.batch = new SpriteBatch();
@@ -71,6 +71,7 @@ public class Screen implements ApplicationListener
 		
 		map.drawHud();
 		Global.batch.end();
+
 	}
 
 	private final static int MAX_FPS = 30;

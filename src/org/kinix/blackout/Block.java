@@ -21,19 +21,17 @@ public class Block
 	public Block(int x, int y)
 	{
 		FixtureDef def = new FixtureDef();
-		def.restitution = 0.9f;
-		def.friction = 0.01f;
+		def.restitution = 0;
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(16, 16);
 		def.shape = shape;
-		def.density = 1f;
+		def.density = 100f;
 		def.filter.categoryBits = 42;
-		def.filter.groupIndex = 42;
-		def.filter.maskBits = 42;
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = BodyType.DynamicBody;
 		boxBodyDef.position.x = x;
 		boxBodyDef.position.y = y;	
+		boxBodyDef.linearDamping = 100;
 		body = Global.world.createBody(boxBodyDef);
 		body.createFixture(def);
 		shape.dispose();

@@ -14,17 +14,17 @@ public class Player
 {
 	Body body;
 	private float speed;
+	private float vx,vy;
 	
 	public Player(int x, int y)
 	{
 		FixtureDef def = new FixtureDef();
-		def.restitution = 0.9f;
-		def.friction = 0.01f;
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(16, 16);
 		def.shape = shape;
+		def.density = 1f;
 		BodyDef boxBodyDef = new BodyDef();
-		boxBodyDef.type = BodyType.DynamicBody;
+		boxBodyDef.type = BodyType.KinematicBody;
 		boxBodyDef.position.x = x;
 		boxBodyDef.position.y = y;	
 		body = Global.world.createBody(boxBodyDef);
@@ -39,16 +39,20 @@ public class Player
 	{
 		final Vector2 position = body.getPosition();
 		Global.batch.draw(Global.player, position.x - 16, position.y - 16, 32, 32);
+		
+		body.setLinearVelocity(vx*speed, vy*speed);
 	}
 	
 	public void stay()
 	{
-		body.setLinearVelocity(0, 0);
+		vx = 0;
+		vy = 0;
 	}
 	
 	public void walk(float vx, float vy)
 	{
-		body.setLinearVelocity(vx*speed, vy*speed);
+		this.vx = vx;
+		this.vy = vy;
 	}
 	
 	

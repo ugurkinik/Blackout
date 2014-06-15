@@ -31,16 +31,16 @@ public class Map
 		font = new BitmapFont();
 		font.setScale(2);
 
-		lights.add(new LightSource(300, 600, 500, 270, 1, 1, 1));
+		lights.add(new LightSource(300, 600, 650, 360, 1, 1, 1));
 
-		blocks.add(new Block(570, 300));
-		blocks.add(new Block(370, 350));
-		blocks.add(new Block(470, 200));
-		blocks.add(new Block(670, 150));
-		blocks.add(new Block(400, 450));
-		blocks.add(new Block(780, 410));
+		blocks.add(new Block(400, 280));
+		blocks.add(new Block(500, 580));
+		blocks.add(new Block(580, 580));
+		blocks.add(new Block(640, 580));
+		blocks.add(new Block(840, 380));
+		blocks.add(new Block(740, 300));
 
-		player = new Player(400, 300);
+		player = new Player(400, 200);
 
 		Global.setShadowFilter((short) 42);
 
@@ -85,12 +85,12 @@ public class Map
 		if (player.isDark())
 		{
 			font.setColor(Color.RED);
-			font.draw(Global.batch, "DARK", 0, 600);
+			font.draw(Global.batch, "DARK", 0, 720);
 		}
 		else
 		{
 			font.setColor(Color.GREEN);
-			font.draw(Global.batch, "LIGHT", 0, 600);
+			font.draw(Global.batch, "LIGHT", 0, 720);
 		}
 		
 		font.setColor(Color.YELLOW);
@@ -99,9 +99,9 @@ public class Map
 
 	public void drawFloor()
 	{
-		for (int i = 0; i < 1067; i += Global.floor.getWidth())
+		for (int i = 0; i < 1280; i += Global.floor.getWidth())
 		{
-			for (int j = 0; j < 600; j += Global.floor.getHeight())
+			for (int j = 0; j < 720; j += Global.floor.getHeight())
 			{
 				Global.batch.draw(Global.floor, i, j);
 			}

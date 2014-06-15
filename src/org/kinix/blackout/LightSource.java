@@ -43,6 +43,7 @@ public class LightSource
 		shape.setAsBox(32, 32);
 		def.shape = shape;
 		def.density = 1f;
+		def.isSensor = true;
 		BodyDef boxBodyDef = new BodyDef();
 		boxBodyDef.type = BodyType.DynamicBody;
 		boxBodyDef.position.x = x;
