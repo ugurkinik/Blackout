@@ -3,16 +3,13 @@ package org.kinix.blackout;
 import box2dLight.Light;
 import box2dLight.PointLight;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class LightSource
 {
@@ -28,7 +25,7 @@ public class LightSource
 		this.g = g;
 		this.b = b;
 		
-		Light light = new PointLight(Global.rayHandler, rays);
+		light = new PointLight(Global.rayHandler, rays);
 		light.setDistance(distance);
 		light.setSoft(true);
 		light.setSoftnessLength(32);
@@ -54,8 +51,7 @@ public class LightSource
 		
 		light.attachToBody(body, 0, 0.5f);
 		
-		if (r == 0.3f)
-		body.setLinearVelocity(-50, 0);
+
 	}
 	
 	public void render()

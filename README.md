@@ -1,4 +1,5 @@
 http://www.youtube.com/playlist?list=PLFlE3uZSHLCQaduLPH2_jCvVAHY7AXLE9
+http://project.kinix.org/blackout/
 
 Done:
 ======================
@@ -6,14 +7,16 @@ Done:
 - Dynamic shadow
 - Detect light/shadow
 - Move Blocks
+- Move Light Sources
+- Prototype 1
 
 To-Do:
 ======================
-- Move Light Sources
-- Prototype 1
+- Turn off/on light sources
 - Slower movement when pushing blocks
 - Avoid from moving more blocks than one
 - Light sensor to unlock door
 - Battery compartment to unlock door
 - Prototype 2
+- Consumption of battery for light sources
 - Map file

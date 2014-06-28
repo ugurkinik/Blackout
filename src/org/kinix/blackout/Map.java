@@ -1,12 +1,12 @@
 package org.kinix.blackout;
 
-import java.awt.Font;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
 
 public class Map
 {
@@ -27,11 +27,13 @@ public class Map
 		Global.box = new Texture(Gdx.files.internal("box.jpg"));
 		Global.floor = new Texture(Gdx.files.internal("floor.png"));
 		Global.player = new Texture(Gdx.files.internal("player.png"));
-		
+
 		font = new BitmapFont();
 		font.setScale(2);
 
-		lights.add(new LightSource(300, 600, 650, 360, 1, 1, 1));
+		lights.add(new LightSource(300, 300, 250, 560, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(300, 200, 450, 260, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(300, 360, 650, 360, 0.5f, 0.5f, 0.5f));
 
 		blocks.add(new Block(400, 280));
 		blocks.add(new Block(500, 580));
@@ -55,13 +57,13 @@ public class Map
 		Global.floor.dispose();
 		Global.player.dispose();
 	}
-	
+
 	long time;
 
 	public void render()
 	{
 		time = System.currentTimeMillis();
-		
+
 		drawFloor();
 
 		Global.batch.enableBlending();
@@ -79,7 +81,7 @@ public class Map
 		player.render();
 
 	}
-	
+
 	public void drawHud()
 	{
 		if (player.isDark())
@@ -92,9 +94,7 @@ public class Map
 			font.setColor(Color.GREEN);
 			font.draw(Global.batch, "LIGHT", 0, 720);
 		}
-		
-		font.setColor(Color.YELLOW);
-		font.draw(Global.batch, "Calculation time per frame: "+(System.currentTimeMillis()-time) +" ms", 0, 30);
+
 	}
 
 	public void drawFloor()
@@ -107,5 +107,34 @@ public class Map
 			}
 		}
 
+	}
+	
+	
+	public boolean takeLight()
+	{
+		if(player.isMovingLight())
+		{
+			player.dropLight();
+			return true;
+		}
+		
+		float distanceSqr;
+		Vector2 playerPos = player.body.getPosition();
+		
+		for(LightSource light:lights)
+		{
+			Vector2 lightPos = light.body.getPosition();
+			distanceSqr = 0;
+			distanceSqr += (lightPos.x - playerPos.x)*(lightPos.x - playerPos.x);
+			distanceSqr += (lightPos.y - playerPos.y)*(lightPos.y - playerPos.y);
+			
+			if(distanceSqr < 16*16)
+			{
+				player.takeLight(light);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 }

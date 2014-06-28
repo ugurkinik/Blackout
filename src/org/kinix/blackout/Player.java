@@ -1,8 +1,5 @@
 package org.kinix.blackout;
 
-import box2dLight.Light;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -12,9 +9,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Player
 {
-	Body body;
+	public Body body;
 	private float speed;
 	private float vx,vy;
+	private LightSource light;
 	
 	public Player(int x, int y)
 	{
@@ -41,6 +39,8 @@ public class Player
 		Global.batch.draw(Global.player, position.x - 16, position.y - 16, 32, 32);
 		
 		body.setLinearVelocity(vx*speed, vy*speed);
+		if(light != null)
+			light.body.setLinearVelocity(vx*speed, vy*speed);
 	}
 	
 	public void stay()
@@ -59,6 +59,25 @@ public class Player
 	public boolean isDark()
 	{
 		return Global.rayHandler.pointAtShadow(body.getPosition().x, body.getPosition().y);
+	}
+	
+	public void takeLight(LightSource light)
+	{
+		this.light = light;
+	}
+	
+	public boolean isMovingLight()
+	{
+		if(light == null)
+			return false;
+		
+		return true;
+	}
+	
+	public void dropLight()
+	{
+		light.body.setLinearVelocity(0, 0);
+		light = null;
 	}
 
 }
