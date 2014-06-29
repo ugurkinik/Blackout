@@ -17,6 +17,7 @@ To-Do:
 - Avoid from moving more blocks than one
 - Light sensor to unlock door
 - Battery compartment to unlock door
+- Trigger area
 - Prototype 2
 - Consumption of battery for light sources
 - Map file

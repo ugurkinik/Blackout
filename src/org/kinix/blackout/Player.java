@@ -43,7 +43,7 @@ public class Player
 			light.body.setLinearVelocity(vx*speed, vy*speed);
 	}
 	
-	public void stay()
+	public void stop()
 	{
 		vx = 0;
 		vy = 0;
@@ -51,8 +51,8 @@ public class Player
 	
 	public void walk(float vx, float vy)
 	{
-		this.vx = vx;
-		this.vy = vy;
+		this.vx += vx;
+		this.vy += vy;
 	}
 	
 	

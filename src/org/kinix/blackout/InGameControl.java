@@ -39,11 +39,22 @@ public class InGameControl implements InputProcessor
 	@Override
 	public boolean keyUp(int keycode)
 	{
-		if(keycode == Keys.W || keycode == Keys.A || keycode == Keys.S || keycode == Keys.D)
+		switch(keycode)
 		{
-			map.player.stay();
+		case Keys.W:
+			map.player.walk(0,-1);
+			break;
+		case Keys.A:
+			map.player.walk(1,0);
+			break;
+		case Keys.S:
+			map.player.walk(0,1);
+			break;
+		case Keys.D:
+			map.player.walk(-1,0);
+			break;
 		}
-			
+		
 		return false;
 	}
 
