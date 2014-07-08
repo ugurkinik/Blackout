@@ -7,6 +7,7 @@ import box2dLight.Light;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 
@@ -23,6 +24,7 @@ public class Map
 
 	public Map()
 	{
+
 		lights = new ArrayList<LightSource>();
 		blocks = new ArrayList<Block>();
 		walls = new ArrayList<Wall>();
@@ -35,6 +37,10 @@ public class Map
 		Global.player = new Texture(Gdx.files.internal("player.png"));
 		Global.wall = new Texture(Gdx.files.internal("wall.png"));
 		Global.glass = new Texture(Gdx.files.internal("glass.jpg"));
+
+		Global.floor.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		Global.wall.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		Global.glass.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 
 		font = new BitmapFont();
 		font.setScale(2);
@@ -49,14 +55,13 @@ public class Map
 		blocks.add(new Block(640, 580));
 		blocks.add(new Block(840, 380));
 		blocks.add(new Block(740, 300));
-		
 
 		walls.add(new Wall(200, 200, 200, 200));
 		walls.add(new Wall(650, 200, 200, 200));
 		glasses.add(new Glass(500, 200, 50, 200));
 
 		player = new Player(400, 200);
-		
+
 		Light.setContactFilter(Global.F_OPAQUE, Global.F_OPAQUE, Global.F_OPAQUE);
 
 		Gdx.input.setInputProcessor(new InGameControl(this));
@@ -91,12 +96,12 @@ public class Map
 		{
 			block.render();
 		}
-		
+
 		for (Wall wall : walls)
 		{
 			wall.render();
 		}
-		
+
 		for (Glass glass : glasses)
 		{
 			glass.render();
@@ -123,42 +128,34 @@ public class Map
 
 	public void drawFloor()
 	{
-		for (int i = 0; i < 1280; i += Global.floor.getWidth())
-		{
-			for (int j = 0; j < 720; j += Global.floor.getHeight())
-			{
-				Global.batch.draw(Global.floor, i, j);
-			}
-		}
-
+		Global.batch.draw(Global.floor, 0, 0, 0, 0, 1280,720);
 	}
-	
-	
+
 	public boolean takeLight()
 	{
-		if(player.isMovingLight())
+		if (player.isMovingLight())
 		{
 			player.dropLight();
 			return true;
 		}
-		
+
 		float distanceSqr;
 		Vector2 playerPos = player.body.getPosition();
-		
-		for(LightSource light:lights)
+
+		for (LightSource light : lights)
 		{
 			Vector2 lightPos = light.body.getPosition();
 			distanceSqr = 0;
-			distanceSqr += (lightPos.x - playerPos.x)*(lightPos.x - playerPos.x);
-			distanceSqr += (lightPos.y - playerPos.y)*(lightPos.y - playerPos.y);
-			
-			if(distanceSqr < 16*16)
+			distanceSqr += (lightPos.x - playerPos.x) * (lightPos.x - playerPos.x);
+			distanceSqr += (lightPos.y - playerPos.y) * (lightPos.y - playerPos.y);
+
+			if (distanceSqr < 16 * 16)
 			{
 				player.takeLight(light);
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 }

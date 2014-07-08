@@ -38,13 +38,10 @@ public class Glass
 	public void render()
 	{
 		final Vector2 position = body.getPosition();
-		for (int i = -w / 2; i < w / 2 - 32; i += 32)
-		{
-			for (int j = -h / 2; j < h / 2 - 32; j += 32)
-			{
-				Global.batch.draw(Global.glass, position.x + i, position.y + j);
-			}
-		}
+
+		Global.batch.setColor(1, 1, 1, 0.7f);
+		Global.batch.draw(Global.glass, position.x -w/2, position.y -h/2, 0, 0, w, h);
+		Global.batch.setColor(1, 1, 1, 1);
 
 	}
 }

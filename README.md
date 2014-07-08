@@ -11,11 +11,11 @@ Done:
 - Walls
 - Glasses
 - Slower movement when pushing blocks
+- Transparent glass
+- Fix: Glass/Wall textures
 
 To-Do:
 ======================
-- Transparent glass
-- Fix: Glass/Wall textures
 - Turn off/on light sources
 - Avoid from moving more blocks than one
 - Light sensor to unlock door

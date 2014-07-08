@@ -39,15 +39,7 @@ public class Wall
 	public void render()
 	{
 		final Vector2 position = body.getPosition();
-		for(int i=-w/2; i<w/2-32; i+=32)
-		{
-			for(int j=-h/2; j<h/2-32; j+=32)
-			{
-				 Global.batch.draw(Global.wall, position.x +i, position.y + j);
-			}
-		}
 		
-
-			
+		Global.batch.draw(Global.wall, position.x -w/2, position.y -h/2, 0, 0, w, h);			
 	}
 }
