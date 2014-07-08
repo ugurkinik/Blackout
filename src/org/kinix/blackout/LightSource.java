@@ -59,13 +59,6 @@ public class LightSource
 		final Vector2 position = body.getPosition();
 		Global.batch.draw(Global.light, position.x - 16, position.y - 16, 32, 32);
 		
-		if (r == 0.3f)
-		{
-			if (position.x > 700)
-				body.setLinearVelocity(-50, 0);
-			else if (position.x < 100)
-				body.setLinearVelocity(50, 0);
-		}
 	}
 	
 

@@ -2,6 +2,8 @@ package org.kinix.blackout;
 
 import java.util.ArrayList;
 
+import box2dLight.Light;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +14,8 @@ public class Map
 {
 	ArrayList<LightSource> lights;
 	ArrayList<Block> blocks;
+	ArrayList<Wall> walls;
+	ArrayList<Glass> glasses;
 
 	Player player;
 
@@ -21,12 +25,16 @@ public class Map
 	{
 		lights = new ArrayList<LightSource>();
 		blocks = new ArrayList<Block>();
+		walls = new ArrayList<Wall>();
+		glasses = new ArrayList<Glass>();
 
 		// TODO: do not load textures if they are already loaded
 		Global.light = new Texture(Gdx.files.internal("light.png"));
 		Global.box = new Texture(Gdx.files.internal("box.jpg"));
 		Global.floor = new Texture(Gdx.files.internal("floor.png"));
 		Global.player = new Texture(Gdx.files.internal("player.png"));
+		Global.wall = new Texture(Gdx.files.internal("wall.png"));
+		Global.glass = new Texture(Gdx.files.internal("glass.jpg"));
 
 		font = new BitmapFont();
 		font.setScale(2);
@@ -41,10 +49,15 @@ public class Map
 		blocks.add(new Block(640, 580));
 		blocks.add(new Block(840, 380));
 		blocks.add(new Block(740, 300));
+		
+
+		walls.add(new Wall(200, 200, 200, 200));
+		walls.add(new Wall(650, 200, 200, 200));
+		glasses.add(new Glass(500, 200, 50, 200));
 
 		player = new Player(400, 200);
-
-		Global.setShadowFilter((short) 42);
+		
+		Light.setContactFilter(Global.F_OPAQUE, Global.F_OPAQUE, Global.F_OPAQUE);
 
 		Gdx.input.setInputProcessor(new InGameControl(this));
 
@@ -56,6 +69,7 @@ public class Map
 		Global.box.dispose();
 		Global.floor.dispose();
 		Global.player.dispose();
+		Global.wall.dispose();
 	}
 
 	long time;
@@ -76,6 +90,16 @@ public class Map
 		for (Block block : blocks)
 		{
 			block.render();
+		}
+		
+		for (Wall wall : walls)
+		{
+			wall.render();
+		}
+		
+		for (Glass glass : glasses)
+		{
+			glass.render();
 		}
 
 		player.render();

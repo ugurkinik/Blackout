@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Transform;
 
 public class Player
 {
@@ -21,15 +22,18 @@ public class Player
 		shape.setAsBox(16, 16);
 		def.shape = shape;
 		def.density = 1f;
+		def.filter.categoryBits = Global.F_SOLID;
+		def.filter.maskBits = Global.F_SOLID;
 		BodyDef boxBodyDef = new BodyDef();
-		boxBodyDef.type = BodyType.KinematicBody;
+		boxBodyDef.type = BodyType.DynamicBody;
 		boxBodyDef.position.x = x;
 		boxBodyDef.position.y = y;	
+		boxBodyDef.fixedRotation = true;
 		body = Global.world.createBody(boxBodyDef);
 		body.createFixture(def);
 		shape.dispose();
 					
-		speed = 100;
+		speed = 250;
 	}
 	
 	
@@ -39,8 +43,13 @@ public class Player
 		Global.batch.draw(Global.player, position.x - 16, position.y - 16, 32, 32);
 		
 		body.setLinearVelocity(vx*speed, vy*speed);
+		
+
 		if(light != null)
-			light.body.setLinearVelocity(vx*speed, vy*speed);
+		{
+			Transform transform = body.getTransform();
+			light.body.setTransform(transform.getPosition(), transform.getRotation());
+		}
 	}
 	
 	public void stop()

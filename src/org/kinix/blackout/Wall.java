@@ -7,24 +7,28 @@ import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
-public class Block
+public class Wall
 {
 	Body body;
-	
-	public Block(int x, int y)
+	int w, h;
+
+	public Wall(int x, int y, int w, int h)
 	{
+		this.w = w;
+		this.h = h;
+		
 		FixtureDef def = new FixtureDef();
+		def.restitution = 0;
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(16, 16);
+		shape.setAsBox(w/2, h/2);
 		def.shape = shape;
-		def.density = 21f;;
+		def.density = 100f;
 		def.filter.categoryBits = Global.F_OPAQUE | Global.F_SOLID;
 		def.filter.maskBits = Global.F_OPAQUE | Global.F_SOLID;
 		BodyDef boxBodyDef = new BodyDef();
-		boxBodyDef.type = BodyType.DynamicBody;
+		boxBodyDef.type = BodyType.StaticBody;
 		boxBodyDef.position.x = x;
 		boxBodyDef.position.y = y;	
-		boxBodyDef.linearDamping = 100;
 		body = Global.world.createBody(boxBodyDef);
 		body.createFixture(def);
 		shape.dispose();
@@ -34,10 +38,16 @@ public class Block
 	
 	public void render()
 	{
-		Vector2 position = body.getPosition();
-		Global.batch.draw(Global.box, position.x - 16, position.y - 16, 32, 32);
+		final Vector2 position = body.getPosition();
+		for(int i=-w/2; i<w/2-32; i+=32)
+		{
+			for(int j=-h/2; j<h/2-32; j+=32)
+			{
+				 Global.batch.draw(Global.wall, position.x +i, position.y + j);
+			}
+		}
+		
 
-		body.setLinearVelocity(0,0);
+			
 	}
-
 }

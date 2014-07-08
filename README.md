@@ -8,12 +8,15 @@ Done:
 - Detect light/shadow
 - Move Blocks
 - Move Light Sources
-- Prototype 1
+- Walls
+- Glasses
+- Slower movement when pushing blocks
 
 To-Do:
 ======================
+- Transparent glass
+- Fix: Glass/Wall textures
 - Turn off/on light sources
-- Slower movement when pushing blocks
 - Avoid from moving more blocks than one
 - Light sensor to unlock door
 - Battery compartment to unlock door
