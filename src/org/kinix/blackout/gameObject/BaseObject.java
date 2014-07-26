@@ -61,6 +61,8 @@ public class BaseObject
 		body = Global.world.createBody(boxBodyDef);
 		body.createFixture(def);
 		shape.dispose();
+		
+		body.setFixedRotation(true);	// Objects are not rotating when they are pushed from corner.
 
 		this.width = width;
 		this.height = height;
