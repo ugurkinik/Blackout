@@ -17,6 +17,7 @@ public class Global
 	public static SpriteBatch batch;
 	public static OrthographicCamera camera;
 	
+	public static float lightQuality = 3; // rayCount/radius
 	
 	public static Texture box;
 	public static Texture light;

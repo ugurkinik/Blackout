@@ -53,13 +53,12 @@ public class Map
 
 		lights.add(new LightSource(300, 1280, 720, 0.5f, 0.5f, 0.5f));
 		lights.add(new LightSource(300, 0, 0, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(300, 450, 260, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(600, 450, 260, 0.5f, 0.5f, 0.5f));
+		//lights.add(new LightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
 
 		blocks.add(new Box(432, 168));
 
 		walls.add(new Wall(350, 232, 32, 32));
-		glasses.add(new Glass(382, 200, 32, 32));
 
 		player = new Player(400, 200);
 

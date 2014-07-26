@@ -23,10 +23,12 @@ public class LightSource extends BaseObject
 		this.g = g;
 		this.b = b;
 		
-		light = new PointLight(Global.rayHandler, (int) (distance));
+		light = new PointLight(Global.rayHandler, (int) (distance*Global.lightQuality));
+		
 		light.setDistance(distance);
 		light.setSoft(true);			// to make edges as visible.
 		light.setSoftnessLength(32);	// to set visibility distance for edges. (should be smaller size of object)
+		
 		light.setColor(new Color(r,g,b, 1));
 		
 		this.distance = distance;
