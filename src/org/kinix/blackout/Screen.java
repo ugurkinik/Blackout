@@ -18,7 +18,7 @@ public class Screen implements ApplicationListener
 	public void create()
 	{
 		Global.camera = new OrthographicCamera(1280, 720);
-		Global.camera.position.set(640, 360, 0);
+		Global.camera.position.set(640, 360, 0);	// set camera position as center
 		Global.camera.update();
 
 		Global.batch = new SpriteBatch();
@@ -74,6 +74,7 @@ public class Screen implements ApplicationListener
 
 	}
 
+	// TODO: set fps settings
 	private final static int MAX_FPS = 30;
 	private final static int MIN_FPS = 15;
 	public final static float TIME_STEP = 1f / MAX_FPS;
@@ -103,6 +104,7 @@ public class Screen implements ApplicationListener
 	@Override
 	public void resize(int width, int height)
 	{
+		// do nothing
 	}
 
 	@Override

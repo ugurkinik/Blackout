@@ -1,40 +1,24 @@
 package org.kinix.blackout;
 
+import org.kinix.blackout.gameObject.BaseObject;
+import org.kinix.blackout.light.LightSource;
+
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Transform;
 
-public class Player
+public class Player extends BaseObject
 {
-	public Body body;
 	private float speed;
 	private float vx,vy;
 	private LightSource light;
 	
 	public Player(int x, int y)
 	{
-		FixtureDef def = new FixtureDef();
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(16, 16);
-		def.shape = shape;
-		def.density = 1f;
-		def.filter.categoryBits = Global.F_SOLID;
-		def.filter.maskBits = Global.F_SOLID;
-		BodyDef boxBodyDef = new BodyDef();
-		boxBodyDef.type = BodyType.DynamicBody;
-		boxBodyDef.position.x = x;
-		boxBodyDef.position.y = y;	
-		boxBodyDef.fixedRotation = true;
-		body = Global.world.createBody(boxBodyDef);
-		body.createFixture(def);
-		shape.dispose();
-					
+		super(x, y, true, false, true);
+			
 		speed = 250;
 	}
+	
 	
 	
 	public void render()
@@ -48,7 +32,7 @@ public class Player
 		if(light != null)
 		{
 			Transform transform = body.getTransform();
-			light.body.setTransform(transform.getPosition(), transform.getRotation());
+			light.setTransform(transform.getPosition(), transform.getRotation());
 		}
 	}
 	
@@ -85,7 +69,7 @@ public class Player
 	
 	public void dropLight()
 	{
-		light.body.setLinearVelocity(0, 0);
+		light.stop();	// to avoid light movement after dropping.
 		light = null;
 	}
 

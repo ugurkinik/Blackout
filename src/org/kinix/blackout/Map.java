@@ -2,6 +2,12 @@ package org.kinix.blackout;
 
 import java.util.ArrayList;
 
+import org.kinix.blackout.gameObject.Box;
+import org.kinix.blackout.gameObject.MovableObject;
+import org.kinix.blackout.gameObject.Glass;
+import org.kinix.blackout.gameObject.Wall;
+import org.kinix.blackout.light.LightSource;
+
 import box2dLight.Light;
 
 import com.badlogic.gdx.Gdx;
@@ -14,7 +20,7 @@ import com.badlogic.gdx.math.Vector2;
 public class Map
 {
 	ArrayList<LightSource> lights;
-	ArrayList<Block> blocks;
+	ArrayList<MovableObject> blocks;
 	ArrayList<Wall> walls;
 	ArrayList<Glass> glasses;
 
@@ -26,17 +32,17 @@ public class Map
 	{
 
 		lights = new ArrayList<LightSource>();
-		blocks = new ArrayList<Block>();
+		blocks = new ArrayList<MovableObject>();
 		walls = new ArrayList<Wall>();
 		glasses = new ArrayList<Glass>();
 
 		// TODO: do not load textures if they are already loaded
-		Global.light = new Texture(Gdx.files.internal("light.png"));
-		Global.box = new Texture(Gdx.files.internal("box.jpg"));
-		Global.floor = new Texture(Gdx.files.internal("floor.png"));
-		Global.player = new Texture(Gdx.files.internal("player.png"));
-		Global.wall = new Texture(Gdx.files.internal("wall.png"));
-		Global.glass = new Texture(Gdx.files.internal("glass.jpg"));
+		Global.light = new Texture(Gdx.files.internal("img/light.png"));
+		Global.box = new Texture(Gdx.files.internal("img/box.jpg"));
+		Global.floor = new Texture(Gdx.files.internal("img/floor.png"));
+		Global.player = new Texture(Gdx.files.internal("img/player.png"));
+		Global.wall = new Texture(Gdx.files.internal("img/wall.png"));
+		Global.glass = new Texture(Gdx.files.internal("img/glass.jpg"));
 
 		Global.floor.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 		Global.wall.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
@@ -45,20 +51,15 @@ public class Map
 		font = new BitmapFont();
 		font.setScale(2);
 
-		lights.add(new LightSource(300, 300, 250, 560, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(300, 200, 450, 260, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(300, 360, 650, 360, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(300, 1280, 720, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(300, 0, 0, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(300, 450, 260, 0.5f, 0.5f, 0.5f));
+		lights.add(new LightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
 
-		blocks.add(new Block(400, 280));
-		blocks.add(new Block(500, 580));
-		blocks.add(new Block(580, 580));
-		blocks.add(new Block(640, 580));
-		blocks.add(new Block(840, 380));
-		blocks.add(new Block(740, 300));
+		blocks.add(new Box(432, 168));
 
-		walls.add(new Wall(200, 200, 200, 200));
-		walls.add(new Wall(650, 200, 200, 200));
-		glasses.add(new Glass(500, 200, 50, 200));
+		walls.add(new Wall(350, 232, 32, 32));
+		glasses.add(new Glass(382, 200, 32, 32));
 
 		player = new Player(400, 200);
 
@@ -92,8 +93,9 @@ public class Map
 			light.render();
 		}
 
-		for (Block block : blocks)
+		for (MovableObject block : blocks)
 		{
+			block.stopIfNotPushed();
 			block.render();
 		}
 
@@ -140,11 +142,11 @@ public class Map
 		}
 
 		float distanceSqr;
-		Vector2 playerPos = player.body.getPosition();
+		Vector2 playerPos = player.getPosition();
 
 		for (LightSource light : lights)
 		{
-			Vector2 lightPos = light.body.getPosition();
+			Vector2 lightPos = light.getPosition();
 			distanceSqr = 0;
 			distanceSqr += (lightPos.x - playerPos.x) * (lightPos.x - playerPos.x);
 			distanceSqr += (lightPos.y - playerPos.y) * (lightPos.y - playerPos.y);

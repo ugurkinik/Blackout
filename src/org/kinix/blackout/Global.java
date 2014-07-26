@@ -25,5 +25,5 @@ public class Global
 	public static Texture wall;
 	public static Texture glass;
 	
-
+	// TODO: init for textures
 }
