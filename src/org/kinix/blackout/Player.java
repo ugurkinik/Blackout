@@ -1,7 +1,7 @@
 package org.kinix.blackout;
 
 import org.kinix.blackout.gameObject.BaseObject;
-import org.kinix.blackout.light.LightSource;
+import org.kinix.blackout.light.BaseLightSource;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Transform;
@@ -10,7 +10,7 @@ public class Player extends BaseObject
 {
 	private float speed;
 	private float vx,vy;
-	private LightSource light;
+	private BaseLightSource light;
 	
 	public Player(int x, int y)
 	{
@@ -30,9 +30,10 @@ public class Player extends BaseObject
 		
 
 		if(light != null)
-		{
+		{			
 			Transform transform = body.getTransform();
 			light.setTransform(transform.getPosition(), transform.getRotation());
+
 		}
 	}
 	
@@ -54,7 +55,7 @@ public class Player extends BaseObject
 		return Global.rayHandler.pointAtShadow(body.getPosition().x, body.getPosition().y);
 	}
 	
-	public void takeLight(LightSource light)
+	public void takeLight(BaseLightSource light)
 	{
 		this.light = light;
 	}

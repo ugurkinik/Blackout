@@ -3,10 +3,12 @@ package org.kinix.blackout;
 import java.util.ArrayList;
 
 import org.kinix.blackout.gameObject.Box;
-import org.kinix.blackout.gameObject.MovableObject;
 import org.kinix.blackout.gameObject.Glass;
+import org.kinix.blackout.gameObject.MovableObject;
 import org.kinix.blackout.gameObject.Wall;
-import org.kinix.blackout.light.LightSource;
+import org.kinix.blackout.light.DirectionalLightSource;
+import org.kinix.blackout.light.BaseLightSource;
+import org.kinix.blackout.light.PointLightSource;
 
 import box2dLight.Light;
 
@@ -19,7 +21,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Map
 {
-	ArrayList<LightSource> lights;
+	ArrayList<BaseLightSource> lights;
 	ArrayList<MovableObject> blocks;
 	ArrayList<Wall> walls;
 	ArrayList<Glass> glasses;
@@ -31,7 +33,7 @@ public class Map
 	public Map()
 	{
 
-		lights = new ArrayList<LightSource>();
+		lights = new ArrayList<BaseLightSource>();
 		blocks = new ArrayList<MovableObject>();
 		walls = new ArrayList<Wall>();
 		glasses = new ArrayList<Glass>();
@@ -51,10 +53,8 @@ public class Map
 		font = new BitmapFont();
 		font.setScale(2);
 
-		lights.add(new LightSource(300, 1280, 720, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(300, 0, 0, 0.5f, 0.5f, 0.5f));
-		lights.add(new LightSource(600, 450, 260, 0.5f, 0.5f, 0.5f));
-		//lights.add(new LightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
+		lights.add(new PointLightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
+		lights.add(new DirectionalLightSource(500, 450, 300, 270, 90, 0.5f, 0.5f, 0.5f));
 
 		blocks.add(new Box(432, 168));
 
@@ -87,7 +87,7 @@ public class Map
 
 		Global.batch.enableBlending();
 
-		for (LightSource light : lights)
+		for (BaseLightSource light : lights)
 		{
 			light.render();
 		}
@@ -143,7 +143,7 @@ public class Map
 		float distanceSqr;
 		Vector2 playerPos = player.getPosition();
 
-		for (LightSource light : lights)
+		for (BaseLightSource light : lights)
 		{
 			Vector2 lightPos = light.getPosition();
 			distanceSqr = 0;

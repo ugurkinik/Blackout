@@ -12,11 +12,13 @@ Done:
 - Glasses
 - Slower movement when pushing blocks
 - Transparent glass
-- Fix: Glass/Wall textures
+- Directional light
 
 To-Do:
 ======================
 - Turn off/on light sources
+- Light types (directional etc.)
+- Ambient light
 - Avoid from moving more blocks than one
 - Light sensor to unlock door
 - Battery compartment to unlock door
