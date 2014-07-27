@@ -73,5 +73,14 @@ public class Player extends BaseObject
 		light.stop();	// to avoid light movement after dropping.
 		light = null;
 	}
+	
+	
+	public void turnOnOffLight()
+	{
+		if(light != null)
+		{
+			light.turnOnOff();
+		}
+	}
 
 }

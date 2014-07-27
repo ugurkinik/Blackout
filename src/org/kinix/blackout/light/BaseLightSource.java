@@ -20,7 +20,6 @@ public class BaseLightSource extends BaseObject
 		this.r = r;
 		this.g = g;
 		this.b = b;
-	
 	}
 	
 	public Vector2 getPosition()
@@ -43,6 +42,22 @@ public class BaseLightSource extends BaseObject
 	{
 		final Vector2 position = body.getPosition();
 		Global.batch.draw(Global.light, position.x - 16, position.y - 16, 32, 32);	
+	}
+	
+	public void turnOff()
+	{
+		light.setActive(false);
+	}
+	
+	
+	public void turnOn()
+	{
+		light.setActive(true);
+	}
+	
+	public void turnOnOff()
+	{
+		light.setActive(!light.isActive());
 	}
 
 }

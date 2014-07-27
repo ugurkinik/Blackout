@@ -13,7 +13,8 @@ public class DirectionalLightSource extends BaseLightSource
 {
 	float angle;
 	
-	public DirectionalLightSource(float distance, int x, int y, float direction, float angle, float r, float g, float b)
+	public DirectionalLightSource(float distance, int x, int y, float direction, float angle,
+			float r, float g, float b, boolean turnedOn)
 	{
 		super(distance, x, y, r, g, b);
 		
@@ -30,6 +31,8 @@ public class DirectionalLightSource extends BaseLightSource
 
 		light.attachToBody(body, 0, 0.5f);
 		body.setTransform(body.getPosition(), direction*MathUtils.degRad);
+		
+		light.setActive(turnedOn);
 	}
 	
 	@Override

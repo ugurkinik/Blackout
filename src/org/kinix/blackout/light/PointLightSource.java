@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 
 public class PointLightSource extends BaseLightSource
 {
-	public PointLightSource(float distance, int x, int y, float r, float g, float b)
+	public PointLightSource(float distance, int x, int y, float r, float g, float b, boolean turnedOn)
 	{
 		super(distance, x, y, r, g, b);
 		
@@ -22,5 +22,6 @@ public class PointLightSource extends BaseLightSource
 										// (should be smaller size of object)
 
 		light.attachToBody(body, 0, 0.5f);
+		light.setActive(turnedOn);
 	}
 }

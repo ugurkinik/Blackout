@@ -13,12 +13,12 @@ Done:
 - Slower movement when pushing blocks
 - Transparent glass
 - Directional light
+- Turn off/on light sources
 
 To-Do:
 ======================
-- Turn off/on light sources
-- Light types (directional etc.)
 - Ambient light
+- Light types
 - Avoid from moving more blocks than one
 - Light sensor to unlock door
 - Battery compartment to unlock door

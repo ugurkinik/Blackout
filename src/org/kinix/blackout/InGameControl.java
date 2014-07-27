@@ -32,6 +32,8 @@ public class InGameControl implements InputProcessor
 		case Keys.E:
 			map.takeLight();
 			break;
+		case Keys.Q:
+			map.player.turnOnOffLight();
 		}
 		return false;
 	}

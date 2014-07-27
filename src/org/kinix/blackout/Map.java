@@ -53,8 +53,8 @@ public class Map
 		font = new BitmapFont();
 		font.setScale(2);
 
-		lights.add(new PointLightSource(400, 650, 360, 0.5f, 0.5f, 0.5f));
-		lights.add(new DirectionalLightSource(500, 450, 300, 270, 90, 0.5f, 0.5f, 0.5f));
+		lights.add(new PointLightSource(400, 650, 360, 0.5f, 0.5f, 0.5f, true));
+		lights.add(new DirectionalLightSource(500, 450, 300, 270, 90, 0.5f, 0.5f, 0.5f, false));
 
 		blocks.add(new Box(432, 168));
 
