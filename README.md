@@ -17,12 +17,16 @@ Done:
 
 To-Do:
 ======================
-- Ambient light
-- Light types
+- Ambient light (detect in brighter areas in ambient light)
+- Light types (torch, oil lamp...)
 - Avoid from moving more blocks than one
-- Light sensor to unlock door
-- Battery compartment to unlock door
-- Trigger area
+- Doors (a new class for door, methods for open and close)
+- Actions (a new class for actions; e.g. open door, on light, display text...)
+- Light sensor (a new class for lightSensor)
+- Light sensors for actions (control light in each frame and trigger actions)
+- Battery compartment (a new class for battery compartment and battery (movable)
+- Batteries for action (control batteries in each frame and trigger actions)
+- Trigger area (a new class for triggerArea, control in each frame, trigger actions if player in it)
 - Prototype 2
 - Consumption of battery for light sources
 - Map file
